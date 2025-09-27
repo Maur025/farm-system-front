@@ -1,6 +1,7 @@
 import { LoginRequest } from "@/component/login-request";
 import { env } from "@/config/env";
 import { LoginResponse } from "@/dto/response/login-response";
+import { handleSuccessAndErrorResponse } from "./commonService";
 
 const { AUTH_HOST } = env;
 const RESOURCE = "/protocol/openid-connect";
@@ -15,23 +16,7 @@ export const loginService = async (loginRequest: LoginRequest): Promise<LoginRes
 		credentials: "include",
 	});
 
-	if (!response.ok) {
-		let errorMessage = "Error to fetch login auth";
-
-		try {
-			const errorData = await response.clone().json();
-			errorMessage = errorData?.message || JSON.stringify(errorData);
-		} catch {
-			const text = await response.clone().text();
-
-			if (text) errorMessage = text;
-		}
-
-		console.error(errorMessage);
-		throw new Error(errorMessage);
-	}
-
-	return response.json();
+	return handleSuccessAndErrorResponse<LoginResponse>(response);
 };
 
 export const refreshTokenService = async (): Promise<LoginResponse> => {
@@ -44,5 +29,5 @@ export const refreshTokenService = async (): Promise<LoginResponse> => {
 		throw new Error("Error to fetch refresh token");
 	}
 
-	return response.json();
+	return handleSuccessAndErrorResponse<LoginResponse>(response);
 };
