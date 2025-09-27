@@ -3,7 +3,7 @@
 import { env } from "@/config/env";
 import { ApiResponse } from "@/dto/response/api-response";
 import { SocialNetworkResponse } from "../dto/response/social-network-response";
-import { handleSuccessAndErrorResponse } from "./commonService";
+import { getCommonHeaders, handleSuccessAndErrorResponse } from "./commonService";
 
 const { BACKEND_HOST } = env;
 
@@ -12,9 +12,7 @@ const RESOURCE = "/social-networks";
 export const getAllSocialNetworks = async (): Promise<ApiResponse<SocialNetworkResponse[]>> => {
 	const response = await fetch(`${BACKEND_HOST}${RESOURCE}`, {
 		method: "GET",
-		headers: {
-			Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
-		},
+		headers: getCommonHeaders(),
 	});
 
 	return handleSuccessAndErrorResponse<ApiResponse<SocialNetworkResponse[]>>(response);

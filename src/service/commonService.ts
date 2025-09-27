@@ -17,3 +17,17 @@ export const handleSuccessAndErrorResponse = async <T>(response: Response): Prom
 
 	return response.json();
 };
+
+export const getCommonHeaders = (): Record<string, string> => {
+	const authToken = localStorage.getItem("auth_token");
+
+	const headers: Record<string, string> = {
+		"Content-Type": "application/json",
+	};
+
+	if (authToken) {
+		headers.Authorization = `Bearer ${authToken}`;
+	}
+
+	return headers;
+};
