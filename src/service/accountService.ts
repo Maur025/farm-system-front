@@ -3,6 +3,7 @@ import { AccountResponse } from "@/dto/response/account-response";
 import { ApiResponse } from "@/dto/response/api-response";
 import { getCommonHeaders, handleSuccessAndErrorResponse } from "./commonService";
 import { AccountReplaceRequest } from "@/dto/request/account-replace-request";
+import { AccountExtensionRequest } from "@/dto/request/account-extension-request";
 
 const { BACKEND_HOST } = env;
 const RESOURCE = "/accounts";
@@ -28,6 +29,19 @@ export const replaceAccountService = async (
 		method: "POST",
 		headers: getCommonHeaders(),
 		body: JSON.stringify(accountReplaceRequest),
+	});
+
+	return handleSuccessAndErrorResponse<ApiResponse<AccountResponse>>(response);
+};
+
+export const extendAccountService = async (
+	accountId: string,
+	accountExtensionRequest: AccountExtensionRequest,
+): Promise<ApiResponse<AccountResponse>> => {
+	const response = await fetch(`${BACKEND_HOST}${RESOURCE}/${accountId}/extension`, {
+		method: "POST",
+		headers: getCommonHeaders(),
+		body: JSON.stringify(accountExtensionRequest),
 	});
 
 	return handleSuccessAndErrorResponse<ApiResponse<AccountResponse>>(response);

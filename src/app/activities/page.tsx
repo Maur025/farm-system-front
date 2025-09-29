@@ -3,12 +3,14 @@
 import { SocialNetworkResponse } from "@/dto/response/social-network-response";
 import { useAuthValidate } from "@/hooks/useAuthValidate";
 import { getAllSocialNetworks } from "@/service/socialNetworkService";
+import { Combobox } from "@headlessui/react";
 import React, { useEffect, useState } from "react";
 
 const Activity = () => {
 	useAuthValidate();
 
 	const [socialNetworkList, setSocialNetworkList] = useState<SocialNetworkResponse[]>([]);
+	const [deviceSelected, setDeviceSelected] = useState(null);
 
 	const onSubmitForm = (event: React.FormEvent) => {
 		event.preventDefault();
@@ -26,8 +28,8 @@ const Activity = () => {
 	}, []);
 
 	return (
-		<section className="m-8">
-			<h1 className="font-mono">La sección de actividades</h1>
+		<section className="m-8 font-mono">
+			<h1 className="mb-8">La sección de actividades</h1>
 
 			<form onSubmit={onSubmitForm} className="mt-8">
 				<fieldset>
@@ -46,6 +48,13 @@ const Activity = () => {
 								))}
 							</select>
 						)}
+					</label>
+					<label>
+						Select device:
+						<Combobox
+							value={deviceSelected}
+							onChange={setDeviceSelected}
+						></Combobox>{" "}
 					</label>
 				</fieldset>
 			</form>
