@@ -4,6 +4,7 @@ import React from "react";
 import { LoginRequest } from "./login-request";
 import { loginService } from "@/service/authService";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const Login = () => {
 	const router = useRouter();
@@ -29,7 +30,7 @@ const Login = () => {
 			<form onSubmit={onSubmitForm}>
 				<fieldset className="flex flex-col gap-2.5">
 					<label className="font-mono">
-						username:
+						username:{" "}
 						<input
 							className="bg-white mx-2 text-gray-800"
 							type="text"
@@ -38,7 +39,7 @@ const Login = () => {
 						/>{" "}
 					</label>
 					<label className="font-mono">
-						password:
+						password:{" "}
 						<input
 							className="bg-white mx-2 text-gray-800"
 							type="password"
@@ -51,6 +52,13 @@ const Login = () => {
 					<button className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]">
 						Login
 					</button>
+
+					<Link
+						href="/register"
+						className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
+					>
+						Register
+					</Link>
 				</div>
 			</form>
 		</section>

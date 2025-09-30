@@ -2,6 +2,8 @@ import { LoginRequest } from "@/component/login-request";
 import { env } from "@/config/env";
 import { LoginResponse } from "@/dto/response/login-response";
 import { handleSuccessAndErrorResponse } from "./commonService";
+import { UserRegisterRequest } from "../dto/request/user-register-request";
+import { UserResponse } from "@/dto/response/user-response";
 
 const { AUTH_HOST } = env;
 const RESOURCE = "/protocol/openid-connect";
@@ -30,4 +32,18 @@ export const refreshTokenService = async (): Promise<LoginResponse> => {
 	}
 
 	return handleSuccessAndErrorResponse<LoginResponse>(response);
+};
+
+export const userRegisterService = async (
+	userRegisterRequest: UserRegisterRequest,
+): Promise<UserResponse> => {
+	const response = await fetch(`${AUTH_HOST}/users`, {
+		method: "POST",
+		headers: {
+			"Content-type": "application/json",
+		},
+		body: JSON.stringify(userRegisterRequest),
+	});
+
+	return handleSuccessAndErrorResponse<UserResponse>(response);
 };
