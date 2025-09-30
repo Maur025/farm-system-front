@@ -5,7 +5,6 @@ import { useAuthValidate } from "@/hooks/useAuthValidate";
 import { getAllSocialNetworks } from "@/service/socialNetworkService";
 import { Combobox } from "@headlessui/react";
 import React, { useEffect, useState } from "react";
-import RootLayout from "../layout";
 import MainLayout from "@/component/MainLayout";
 import { ActivityResponse } from "@/dto/response/activity-response";
 import { getAllActivities } from "@/service/activityService";
@@ -42,7 +41,7 @@ const Activity = () => {
 
 	return (
 		<MainLayout>
-			<div className="font-mono grid grid-cols-[1fr_1fr] gap-8">
+			<div className="font-mono grid grid-cols-2 gap-8 w-full">
 				<section>
 					<h3 className="mb-8">ACTIVITY CREATE</h3>
 
@@ -78,43 +77,45 @@ const Activity = () => {
 				<section>
 					<h3 className="mb-8">ACTIVITY LIST</h3>
 
-					<table className="w-full border-collapse border border-gray-400 bg-white text-sm dark:border-gray-500 dark:bg-gray-800 table-auto">
-						<thead className="bg-gray-50 dark:bg-gray-700">
-							<tr>
-								<th className="border border-gray-300 p-4 text-left text-gray-900 dark:border-gray-600 dark:text-gray-200">
-									Username
-								</th>
-								<th className="border border-gray-300 p-4 text-left text-gray-900 dark:border-gray-600 dark:text-gray-200">
-									Activity Type
-								</th>
-								<th className="border border-gray-300 p-4 text-left text-gray-900 dark:border-gray-600 dark:text-gray-200">
-									Link
-								</th>
-								<th className="border border-gray-300 p-4 text-left text-gray-900 dark:border-gray-600 dark:text-gray-200">
-									Activity Date
-								</th>
-							</tr>
-						</thead>
-						<tbody>
-							{activityList.length > 0 &&
-								activityList.map((activity) => (
-									<tr key={activity.id}>
-										<td className="border border-gray-300 p-4 text-gray-500 dark:border-gray-700 dark:text-gray-400">
-											{activity?.account?.username || "N/A"}
-										</td>
-										<td className="border border-gray-300 p-4 text-gray-500 dark:border-gray-700 dark:text-gray-400">
-											{activity?.activityType?.name || "N/A"}
-										</td>
-										<td className="border border-gray-300 p-4 text-gray-500 dark:border-gray-700 dark:text-gray-400">
-											{activity.link || "N/A"}
-										</td>
-										<td className="border border-gray-300 p-4 text-gray-500 dark:border-gray-700 dark:text-gray-400">
-											{getFormatDate(activity.activityDate)}
-										</td>
-									</tr>
-								))}
-						</tbody>
-					</table>
+					<div className="overflow-x-auto">
+						<table className="min-w-full border-collapse border border-gray-400 bg-white text-sm dark:border-gray-500 dark:bg-gray-800">
+							<thead className="bg-gray-50 dark:bg-gray-700">
+								<tr>
+									<th className="border border-gray-300 p-4 text-left text-gray-900 dark:border-gray-600 dark:text-gray-200 text-sm max-w-xs">
+										Activity Date
+									</th>
+									<th className="border border-gray-300 p-4 text-left text-gray-900 dark:border-gray-600 dark:text-gray-200 text-sm max-w-xs">
+										Username
+									</th>
+									<th className="border border-gray-300 p-4 text-left text-gray-900 dark:border-gray-600 dark:text-gray-200 text-sm max-w-xs">
+										Activity Type
+									</th>
+									<th className="border border-gray-300 p-4 text-left text-gray-900 dark:border-gray-600 dark:text-gray-200 text-sm max-w-xs">
+										Link
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								{activityList.length > 0 &&
+									activityList.map((activity) => (
+										<tr key={activity.id}>
+											<td className="border border-gray-300 p-4 text-gray-500 dark:border-gray-700 dark:text-gray-400 text-xs max-w-xs break-words">
+												{getFormatDate(activity.activityDate)}
+											</td>
+											<td className="border border-gray-300 p-4 text-gray-500 dark:border-gray-700 dark:text-gray-400 text-xs max-w-xs break-words">
+												{activity?.account?.username || "N/A"}
+											</td>
+											<td className="border border-gray-300 p-4 text-gray-500 dark:border-gray-700 dark:text-gray-400 text-xs max-w-xs break-words">
+												{activity?.activityType?.name || "N/A"}
+											</td>
+											<td className="border border-gray-300 p-4 text-gray-500 dark:border-gray-700 dark:text-gray-400 text-xs max-w-xs break-words">
+												{activity.link || "N/A"}
+											</td>
+										</tr>
+									))}
+							</tbody>
+						</table>
+					</div>
 				</section>
 			</div>
 		</MainLayout>

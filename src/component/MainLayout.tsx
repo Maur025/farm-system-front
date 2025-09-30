@@ -40,7 +40,12 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
 							</ul>
 						</li>
 						<li>
-							<Link href="/reports">Reports</Link>
+							Reports
+							<ul className="ml-4 space-y-1 text-gray-400">
+								<li>
+									<Link href="/reports/activities">Activities</Link>
+								</li>
+							</ul>
 						</li>
 						<li>
 							<Link href="/users">Users</Link>
